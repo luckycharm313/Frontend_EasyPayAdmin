@@ -18,6 +18,10 @@ const ApplicationStyles = {
       bottom: 0,
       right: 0
     },
+    vCenterContainer: {
+      flex: 1,
+      justifyContent: 'center',
+    },
     scrollContainer: {
       flexGrow: 1
     },

@@ -10,12 +10,12 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: Colors.white,
     borderRadius: Metrics.mainRadius,
-    paddingHorizontal: 10,
+    paddingHorizontal: Metrics.mainHorizontal * 0.5,
     paddingVertical: Metrics.mainVertical,
   },
 	input: {
     flex: 1,
-    fontSize: Fonts.size.regular,
+    fontSize: Fonts.size.popular,
 		textAlign: 'left',
     color: Colors.black,
   }

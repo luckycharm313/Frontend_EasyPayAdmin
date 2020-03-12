@@ -1,3 +1,8 @@
+import {Dimensions, Platform} from 'react-native'
+
+const { width, height } = Dimensions.get('window')
+const scale = width < height ? height / 812 : height / 375
+
 const type = {
   base: 'Avenir-Book',
   bold: 'Avenir-Black',
@@ -5,20 +10,20 @@ const type = {
 }
 
 const size = {
-  h1: 38,
-  h2: 34,
-  h3: 24,
-  h4: 26,
-  h5: 20,
-  h6: 19,
-  input: 18,
-  regular: 17,
-  middle: 16,
-  popular: 15,
-  medium: 14,
-  small: 12,
-  xs: 11,
-  tiny: 8.5
+  h1: 38 * scale,
+  h2: 34 * scale,
+  h3: 24 * scale,
+  h4: 26 * scale,
+  h5: 20 * scale,
+  h6: 19 * scale,
+  input: 18 * scale,
+  regular: 17 * scale,
+  middle: 16 * scale,
+  popular: 15 * scale,
+  medium: 14 * scale,
+  small: 12 * scale,
+  xs: 11 * scale,
+  tiny: 8.5 * scale
 }
 
 const style = {

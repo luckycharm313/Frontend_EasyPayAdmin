@@ -2,6 +2,7 @@ import '../Config'
 import DebugConfig from '../Config/DebugConfig'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import Orientation from 'react-native-orientation'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
 
@@ -18,6 +19,16 @@ const store = createStore()
  * We separate like this to play nice with React Native's hot reloading.
  */
 class App extends Component {
+  componentWillMount() {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(this._orientationDidChange);
+  }
+
+  _orientationDidChange = (orientation) => {
+    if (orientation === 'LANDSCAPE') {
+      Orientation.lockToPortrait();
+    }
+  }
   render () {
     return (
       <Provider store={store}>

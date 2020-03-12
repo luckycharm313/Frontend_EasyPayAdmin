@@ -1,14 +1,22 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics } from '../../Themes/'
+import { ApplicationStyles, Metrics, Fonts, Colors } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   logoContainer: {
     alignItems: 'center',
-    marginTop: Metrics.screenHeight * 0.1
+    marginVertical: Metrics.mainVertical
   },
-  btnGroupContainer: {
-    flex: 1,
-    justifyContent: 'center'
+  textNote: {
+    fontSize: Fonts.size.popular,
+    color: Colors.white,
+    fontWeight: '400',
+    marginVertical: Metrics.mainVertical
+  },
+  textWelcome: {
+    fontSize: Fonts.size.h5,
+    color: Colors.white,
+    fontWeight: '600',
+    marginTop: Metrics.mainVertical
   }
 })

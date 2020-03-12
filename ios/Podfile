@@ -30,6 +30,8 @@ target 'EasyAdmin' do
   pod 'glog', :podspec => "#{rn_path}/third-party-podspecs/glog.podspec"  
   pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
   
+  pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
+
   target 'EasyAdminTests' do
     inherit! :search_paths
     # Pods for testing
