@@ -23,14 +23,26 @@ export default StyleSheet.create({
   },
   icon: {
     color: Colors.lightWhite,
-    fontSize: Fonts.size.h4
+    fontSize: Fonts.size.h6
   },
   iconBack: {
     color: Colors.lightWhite,
-    fontSize: Fonts.size.h4
+    fontSize: Fonts.size.h6
   },
   iconSetting: {
     color: Colors.lightWhite,
     fontSize: Fonts.size.h5
+  },
+  rightContainer: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  welcomeText: {
+    color: Colors.lightWhite,
+    fontSize: Fonts.size.medium,
+    fontWeight: '700',
+    marginRight: Metrics.mainVertical
   }
 });

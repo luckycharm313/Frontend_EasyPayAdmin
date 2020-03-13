@@ -3,18 +3,17 @@ import { SafeAreaView, View, Image, ScrollView, Keyboard, LayoutAnimation, Text 
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import Input from '../Components/Input'
+
 // Styles
-import styles from './Styles/LaunchScreenStyle'
 import { Images, Metrics } from '../Themes/'
-class LaunchScreen extends Component {
+import styles from './Styles/LoginScreenStyle'
+
+class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       keyboardHeight: 0,
-      biz_name: '',
-      biz_no: '',
-      password: '',
-      cf_password: '',
+      employee_id: '',
     }
   }
 
@@ -40,7 +39,7 @@ class LaunchScreen extends Component {
   }
 
   onBeginHandle = () => {
-    this.props.navigation.navigate('LoginScreen')
+    this.props.navigation.navigate('MainScreen')
   }
 
   render () {
@@ -53,32 +52,14 @@ class LaunchScreen extends Component {
                 source={Images.logo}
                 style={{ width: Metrics.images.logo, height: Metrics.images.logo }}
               />
-              <Text style={styles.textWelcome}>WELCOME TO EASY PAY ADMIN CONSOLE</Text>
             </View>
             <View style={styles.vCenterContainer}>
               <Input
-                onChangeText={(biz_name)=>this.setState({biz_name})}
-                placeholder='PLEASE ENTER YOUR BUSINESS NAME SO THAT WE CAN QUICKLY SET YOU UP'
-                value={this.state.biz_name} />
-              <Input
-                onChangeText={(biz_no)=>this.setState({biz_no})}
-                placeholder='ENTER YOUR BUSINESS ACCOUNT NUMBER WITH EASY PAY'
-                value={this.state.biz_no} />
-              <Input
-                onChangeText={(password)=>this.setState({password})}
-                secureTextEntry
-                placeholder='CREATE YOUR OVERRIDE PASSWORD (PASSWORD FIELD)'
-                value={this.state.password} />
-              <Input
-                onChangeText={(cf_password)=>this.setState({cf_password})}
-                secureTextEntry
-                placeholder='CONFIRM YOUR OVERRIDE PASSWORD'
-                value={this.state.cf_password} />
-              <Text style={styles.textNote}>WARNING : OVERRIDE PASSWORD CAN ONLY BE CHANGED AND RETRIEVED BY 
-                CONTACTING EASY PAY SUPPORT. PLEASE STORE AND KEEP INFO IN A SAFE PLACE.
-              </Text>
+                onChangeText={(employee_id)=>this.setState({employee_id})}
+                placeholder='ENTER EMPLOYEE ID Or NAME TO PROCEED'
+                value={this.state.employee_id} />
               <Button
-                title='BEGIN'
+                title='ENTER'
                 titleStyle={styles.buttonTitleStyle}
                 buttonStyle={styles.buttonStyle}
                 containerStyle={[styles.buttonContainerStyle, { marginTop: Metrics.section.xl}]}
@@ -103,4 +84,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LaunchScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
