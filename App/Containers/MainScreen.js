@@ -8,6 +8,7 @@ import { Metrics } from '../Themes/'
 import styles from './Styles/MainScreenStyle'
 
 class MainScreen extends Component {
+
   render () {
     return (
       <SafeAreaView style={styles.container}>
@@ -18,28 +19,28 @@ class MainScreen extends Component {
             titleStyle={styles.buttonTitleStyle}
             buttonStyle={styles.buttonStyle}
             containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
-            onPress={this.onProgressHandle}
+            onPress={() => this.props.navigation.navigate('ProcessReceiptScreen')}
           />
           <Button
             title='Payment Status'
             titleStyle={styles.buttonTitleStyle}
             buttonStyle={styles.buttonStyle}
             containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
-            onPress={this.onProgressHandle}
+            onPress={() => this.props.navigation.navigate('StatusScreen')}
           />
           <Button
             title='Issue Refund'
             titleStyle={styles.buttonTitleStyle}
             buttonStyle={styles.buttonStyle}
             containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
-            onPress={this.onProgressHandle}
+            onPress={() => this.props.navigation.navigate('RefundScreen')}
           />
           <Button
             title='Records'
             titleStyle={styles.buttonTitleStyle}
             buttonStyle={styles.buttonStyle}
             containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
-            onPress={this.onProgressHandle}
+            onPress={() => this.props.navigation.navigate('StatusScreen')}
           />
         </View>        
       </SafeAreaView>

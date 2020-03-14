@@ -1,18 +1,5 @@
-import React, { useState } from "react";
-import {
-  Platform,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-  Text
-} from "react-native";
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
-import FeatherIcons from "react-native-vector-icons/Feather";
 import {
   createStackNavigator,
-  createMaterialTopTabNavigator,
-  createDrawerNavigator
 } from "react-navigation";
 
 import styles from "./Styles/NavigationStyles";
@@ -21,8 +8,9 @@ import LoginScreen from '../Containers/LoginScreen'
 import MainScreen from '../Containers/MainScreen'
 import ProcessReceiptScreen from '../Containers/ProcessReceiptScreen'
 import IssueReceiptScreen from '../Containers/IssueReceiptScreen'
-import { Colors, Metrics, Images } from "../Themes/";
-
+import SplitScreen from '../Containers/SplitScreen'
+import StatusScreen from '../Containers/StatusScreen'
+import RefundScreen from '../Containers/RefundScreen'
 
 const PrimaryNav = createStackNavigator(
   {
@@ -31,10 +19,13 @@ const PrimaryNav = createStackNavigator(
     MainScreen: { screen: MainScreen },
     ProcessReceiptScreen: { screen: ProcessReceiptScreen },
     IssueReceiptScreen: { screen: IssueReceiptScreen },
+    SplitScreen: { screen: SplitScreen },
+    StatusScreen: { screen: StatusScreen },
+    RefundScreen: { screen: RefundScreen },
   },
   {
     headerMode: "none",
-    initialRouteName: "IssueReceiptScreen",
+    initialRouteName: "StatusScreen",
     navigationOptions: {
       headerStyle: styles.header,
       lazy: false

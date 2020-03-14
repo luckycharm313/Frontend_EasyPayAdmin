@@ -1,27 +1,80 @@
 import React, { Component } from 'react'
-import { SafeAreaView, View, TouchableOpacity, Text, FlatList } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import Header from '../Components/Header'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import SmallBill from '../Components/SmallBill'
+import BigBill from '../Components/BigBill'
 
 // Styles
+import { Metrics, Colors, Fonts } from '../Themes/'
 import styles from './Styles/IssueReceiptScreenStyle'
 
 class IssueReceiptScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      isBillView: false
     }
   }
+  
+  onSplitHandle = () => {
+    this.props.navigation.navigate('SplitScreen')
+  }
+
+  onClickPaperHandle = (e, isBillView) => {
+    this.setState({isBillView})
+  }
+
   render () {
     return (
       <SafeAreaView style={styles.container}>
-        <Header leftButton='back' />
-        <View style={[styles.mainPaddingContainer , {}]}>       
-        </View>        
+        {
+          this.state.isBillView ? 
+            <BigBill onClickPaperHandle={() => this.onClickPaperHandle(null, false)}/>
+          :
+          <View style={{ flex: 1}}>
+            <Header leftButton='back' navigation={this.props.navigation} />
+            <View style={[styles.mainPaddingContainer , {}]}>
+              <View style={styles.topBtnContainer}>
+                <Button
+                  icon={
+                    <Icon
+                      name="th-large"
+                      size={Fonts.size.medium}
+                      color={Colors.white}
+                    />
+                  }
+                  title='Split Bill'
+                  titleStyle={[styles.buttonTitleStyle, { marginLeft: Metrics.section.small}]}
+                  buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
+                  containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
+                  onPress={this.onSplitHandle}
+                />
+                <Button
+                  icon={
+                    <Icon
+                      name="download"
+                      size={Fonts.size.medium}
+                      color={Colors.white}
+                    />
+                  }
+                  title='Print Bill'
+                  titleStyle={[styles.buttonTitleStyle, { marginLeft: Metrics.section.small}]}
+                  buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
+                  containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline', marginLeft: Metrics.section.small}]}
+                  onPress={this.onPrintHandle}
+                />
+              </View>
+              <View style={styles.mainContent}>
+                <View style={styles.billContent}>
+                  <SmallBill onClickPaperHandle={() => this.onClickPaperHandle(null, true)}/>
+                </View>
+              </View>
+            </View>
+          </View>
+        }        
       </SafeAreaView>
     )
   }

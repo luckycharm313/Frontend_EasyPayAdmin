@@ -33,6 +33,8 @@ const metrics = {
     medium: 40 * scale,
     large: 60 * scale,
     logo: 200 * scale,
+    sQR: 100 * scale,
+    lQR: 280 * scale,
     main: 320 * scale,
   }
 }

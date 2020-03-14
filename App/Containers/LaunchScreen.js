@@ -67,7 +67,7 @@ class LaunchScreen extends Component {
               <Input
                 onChangeText={(password)=>this.setState({password})}
                 secureTextEntry
-                placeholder='CREATE YOUR OVERRIDE PASSWORD (PASSWORD FIELD)'
+                placeholder='CREATE YOUR OVERRIDE PASSWORD'
                 value={this.state.password} />
               <Input
                 onChangeText={(cf_password)=>this.setState({cf_password})}

@@ -9,7 +9,15 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: Colors.primary,
-    paddingHorizontal: Metrics.mainHorizontal
+    paddingHorizontal: Metrics.mainHorizontal,
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowColor: Colors.primaryDark,
+    elevation: 4,    
   },
   iconLeft: {
     paddingVertical: Metrics.section.tiny,
