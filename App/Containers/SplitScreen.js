@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { SafeAreaView, View, FlatList, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Header from '../Components/Header'
 import SmallBill from '../Components/SmallBill'
 import BigBill from '../Components/BigBill'
@@ -62,6 +62,13 @@ class SplitScreen extends Component {
                   </View>
               }              
               <View style={styles.topBtnContainer}>
+                <TouchableOpacity
+                  style={styles.refreshContainer}
+                  onPress={() => this.props.navigation.navigate('MainScreen')}
+                >
+                  <FontAwesome name="home" style={styles.refreshIcon} />
+                </TouchableOpacity>
+
                 <Button
                   title='50 / 50'
                   titleStyle={[styles.buttonTitleStyle]}
@@ -87,7 +94,7 @@ class SplitScreen extends Component {
                   style={styles.refreshContainer}
                   onPress={() => this.onSplitHandle(0)}
                 >
-                  <Icon name="refresh" style={styles.refreshIcon} />
+                  <FontAwesome name="refresh" style={styles.refreshIcon} />
                 </TouchableOpacity>
               </View>
               

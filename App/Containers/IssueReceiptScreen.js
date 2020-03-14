@@ -23,6 +23,10 @@ class IssueReceiptScreen extends Component {
     this.props.navigation.navigate('SplitScreen')
   }
 
+  onPrintHandle = () => {
+    
+  }
+
   onClickPaperHandle = (e, isBillView) => {
     this.setState({isBillView})
   }
@@ -38,6 +42,22 @@ class IssueReceiptScreen extends Component {
             <Header leftButton='back' navigation={this.props.navigation} />
             <View style={[styles.mainPaddingContainer , {}]}>
               <View style={styles.topBtnContainer}>
+                <View style={{flex: 1, justifyContent: 'flex-start'}}>
+                  <Button
+                    icon={
+                      <Icon
+                        name="home"
+                        size={Fonts.size.medium}
+                        color={Colors.white}
+                      />
+                    }
+                    title='Home'
+                    titleStyle={[styles.buttonTitleStyle, { marginLeft: Metrics.section.small}]}
+                    buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
+                    containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
+                    onPress={() => this.props.navigation.navigate('MainScreen')}
+                  />
+                </View>
                 <Button
                   icon={
                     <Icon

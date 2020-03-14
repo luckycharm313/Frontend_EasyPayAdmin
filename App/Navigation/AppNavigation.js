@@ -25,7 +25,7 @@ const PrimaryNav = createStackNavigator(
   },
   {
     headerMode: "none",
-    initialRouteName: "StatusScreen",
+    initialRouteName: "LaunchScreen",
     navigationOptions: {
       headerStyle: styles.header,
       lazy: false

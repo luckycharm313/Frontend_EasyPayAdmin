@@ -17,7 +17,7 @@ export default StyleSheet.create({
   topBtnContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-between'
   },
   mainContent: {
     flex: 1,

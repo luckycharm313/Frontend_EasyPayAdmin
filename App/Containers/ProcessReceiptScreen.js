@@ -45,10 +45,14 @@ class ProcessReceiptScreen extends Component {
     )
   }
 
+  onProgressHandle = () => {
+    this.props.navigation.navigate('IssueReceiptScreen')
+  }
+
   render () {
     return (
       <SafeAreaView style={styles.container}>
-        <Header leftButton='back' />
+        <Header leftButton='back' navigation={this.props.navigation}/>
         <View style={[styles.mainPaddingContainer , {}]}>
           <Text style={styles.textTitle}>Add Menu Item</Text>
           <View style={styles.inputContainer}>
