@@ -74,11 +74,11 @@ export default StyleSheet.create({
   },
   zoomContainer: {
     position: 'absolute',
-    bottom: Metrics.mainHorizontal,
-    right: Metrics.mainHorizontal,
+    bottom: Metrics.mainVertical,
+    right: Metrics.mainVertical,
   },
   zoomOutIcon: {
-    fontSize: Fonts.size.h4,
+    fontSize: Fonts.size.h6,
     color:Colors.black
   },
   splitText: {

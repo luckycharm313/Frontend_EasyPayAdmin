@@ -83,7 +83,7 @@ class RefundScreen extends Component {
           onBackdropPress={() => this.setState({ isOpen: false })}
           >
           <View style={styles.modalContainer}>
-            <Text style={styles.modalLabel}>WARNING!!! SUPERVISORS AND MANAGERS ALONE ARE ALLOWED TO OVERRIDE PAYMENTS</Text>
+            <Text style={styles.modalLabel}>WARNING!!! ONLY SUPERVISORS AND MANAGERS ARE ALLOWED TO OVERRIDE PAYMENTS</Text>
             <Input
               onChangeText={(employee_id)=>this.setState({employee_id})}
               placeholder='ENTER MANAGER OR SUPERVISOR EMPLOYEE ID'

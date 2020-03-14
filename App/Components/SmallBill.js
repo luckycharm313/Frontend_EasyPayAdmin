@@ -19,7 +19,7 @@ export default class SmallBill extends Component {
 
   renderFooter = () => {
     return (
-      <View style={{marginBottom: Metrics.section.large}}>
+      <View style={{marginBottom: Metrics.section.xl}}>
         <View style={[styles.orderItem, { marginTop: Metrics.section.large }]}>
           <Text style={styles.totalLeft}>Subtotal</Text>
           <Text style={styles.totalRight}>14.00</Text>
@@ -64,7 +64,7 @@ export default class SmallBill extends Component {
             <Text style={styles.splitText}>SPLIT CHECK</Text>
         }
         <View style={[styles.orderItem, { marginVertical: Metrics.section.tiny }]}>
-          <Text style={[styles.totalLeft, { fontWeight: '800'} ]}>No</Text>
+          <Text style={[styles.totalLeft, { fontWeight: '800'} ]}>Receipt No</Text>
           <Text style={[styles.totalRight, { width: null, fontWeight: '800' }]}>0001</Text>
         </View>
       </View>

@@ -6,7 +6,7 @@ export default StyleSheet.create({
   topBtnContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'space-between'
   },
   mainContent: {
     alignItems: 'center',
@@ -16,5 +16,20 @@ export default StyleSheet.create({
   billContent: {
     width: '60%',
     height: '85%'
-  }
+  },
+  refreshContainer: {
+    backgroundColor: Colors.primaryLight,
+    borderRadius: 500,
+    padding: Metrics.mainVertical * 0.8,
+    borderColor: Colors.white,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  refreshIcon: {
+    aspectRatio: 1,
+    fontSize: Fonts.size.h6,
+    color: Colors.white,
+    fontWeight: '700'
+  },
 })

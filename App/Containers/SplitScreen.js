@@ -68,26 +68,25 @@ class SplitScreen extends Component {
                 >
                   <FontAwesome name="home" style={styles.refreshIcon} />
                 </TouchableOpacity>
-
                 <Button
                   title='50 / 50'
                   titleStyle={[styles.buttonTitleStyle]}
                   buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
-                  containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
+                  containerStyle={[styles.buttonContainerStyle, { width: '25%' }]}
                   onPress={() => this.onSplitHandle(2)}
                 />
                 <Button
                   title='3 Way Split'
                   titleStyle={[styles.buttonTitleStyle]}
                   buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
-                  containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline', marginLeft: Metrics.section.small}]}
+                  containerStyle={[styles.buttonContainerStyle, { width: '25%' }]}
                   onPress={() => this.onSplitHandle(3)}
                 />
                 <Button
                   title='5 Way Split'
                   titleStyle={[styles.buttonTitleStyle]}
                   buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
-                  containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline', marginLeft: Metrics.section.small}]}
+                  containerStyle={[styles.buttonContainerStyle, { width: '25%' }]}
                   onPress={() => this.onSplitHandle(5)}
                 />
                 <TouchableOpacity
@@ -95,7 +94,7 @@ class SplitScreen extends Component {
                   onPress={() => this.onSplitHandle(0)}
                 >
                   <FontAwesome name="refresh" style={styles.refreshIcon} />
-                </TouchableOpacity>
+                </TouchableOpacity>                
               </View>
               
               <View style={styles.mainContent}>

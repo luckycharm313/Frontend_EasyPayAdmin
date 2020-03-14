@@ -28,6 +28,7 @@ export default StyleSheet.create({
     marginTop: Metrics.section.small * 0.8
   },
   textAddressName: {
+    flex: 1,
     fontSize: Fonts.size.tiny,
     color: Colors.black,
     letterSpacing: 0.5,
@@ -63,6 +64,7 @@ export default StyleSheet.create({
     color: Colors.black,
   },
   qrContainer: {
+    flex: 1,
     alignItems: 'center',
     marginTop: Metrics.section.large
   },
@@ -74,8 +76,8 @@ export default StyleSheet.create({
   },
   zoomContainer: {
     position: 'absolute',
-    bottom: Metrics.mainHorizontal,
-    right: Metrics.mainHorizontal,
+    bottom: Metrics.mainVertical,
+    right: Metrics.mainVertical,
   },
   zoomOutIcon: {
     fontSize: Fonts.size.h4,

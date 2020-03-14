@@ -28,16 +28,15 @@ export default StyleSheet.create({
     paddingHorizontal: Metrics.mainHorizontal * 0.5
   },
   refreshContainer: {
+    // width: '5%',
+    aspectRatio: 1,
     backgroundColor: Colors.primaryLight,
     borderRadius: 500,
     padding: Metrics.mainVertical * 0.8,
     borderColor: Colors.white,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    borderWidth: 1
   },
   refreshIcon: {
-    aspectRatio: 1,
     fontSize: Fonts.size.h6,
     color: Colors.white,
     fontWeight: '700'

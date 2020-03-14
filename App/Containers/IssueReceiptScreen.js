@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, View } from 'react-native'
+import { SafeAreaView, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -42,8 +42,8 @@ class IssueReceiptScreen extends Component {
             <Header leftButton='back' navigation={this.props.navigation} />
             <View style={[styles.mainPaddingContainer , {}]}>
               <View style={styles.topBtnContainer}>
-                <View style={{flex: 1, justifyContent: 'flex-start'}}>
-                  <Button
+                <View style={{}}>
+                  {/* <Button
                     icon={
                       <Icon
                         name="home"
@@ -56,36 +56,45 @@ class IssueReceiptScreen extends Component {
                     buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
                     containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
                     onPress={() => this.props.navigation.navigate('MainScreen')}
+                  /> */}
+                  
+                  <TouchableOpacity
+                    style={styles.refreshContainer}
+                    onPress={() => this.props.navigation.navigate('MainScreen')}
+                  >
+                    <Icon name="home" style={styles.refreshIcon} />
+                  </TouchableOpacity>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Button
+                    // icon={
+                    //   <Icon
+                    //     name="th-large"
+                    //     size={Fonts.size.medium}
+                    //     color={Colors.white}
+                    //   />
+                    // }
+                    title='Split Bill'
+                    titleStyle={[styles.buttonTitleStyle/*, { marginLeft: Metrics.section.small}*/]}
+                    buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
+                    containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
+                    onPress={this.onSplitHandle}
+                  />
+                  <Button
+                    // icon={
+                    //   <Icon
+                    //     name="download"
+                    //     size={Fonts.size.medium}
+                    //     color={Colors.white}
+                    //   />
+                    // }
+                    title='Print Bill'
+                    titleStyle={[styles.buttonTitleStyle/*, { marginLeft: Metrics.section.small}*/]}
+                    buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
+                    containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline', marginLeft: Metrics.section.small}]}
+                    onPress={this.onPrintHandle}
                   />
                 </View>
-                <Button
-                  icon={
-                    <Icon
-                      name="th-large"
-                      size={Fonts.size.medium}
-                      color={Colors.white}
-                    />
-                  }
-                  title='Split Bill'
-                  titleStyle={[styles.buttonTitleStyle, { marginLeft: Metrics.section.small}]}
-                  buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
-                  containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
-                  onPress={this.onSplitHandle}
-                />
-                <Button
-                  icon={
-                    <Icon
-                      name="download"
-                      size={Fonts.size.medium}
-                      color={Colors.white}
-                    />
-                  }
-                  title='Print Bill'
-                  titleStyle={[styles.buttonTitleStyle, { marginLeft: Metrics.section.small}]}
-                  buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
-                  containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline', marginLeft: Metrics.section.small}]}
-                  onPress={this.onPrintHandle}
-                />
               </View>
               <View style={styles.mainContent}>
                 <View style={styles.billContent}>
