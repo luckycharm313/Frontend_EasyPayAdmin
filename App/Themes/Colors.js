@@ -8,6 +8,9 @@ const colors = {
   textHintColor: '#A1A3B3',
   lightWhite: '#E8E9F0',
   darkWhite: '#E5E5E5',
+  pending: '#D51010',
+  declined: '#EAD95A',
+  success: '#97EA5A',
 
   background: '#1F0808',
   clear: 'rgba(0,0,0,0)',
