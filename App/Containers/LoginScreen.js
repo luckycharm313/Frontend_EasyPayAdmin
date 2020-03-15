@@ -56,7 +56,7 @@ class LoginScreen extends Component {
             <View style={styles.vCenterContainer}>
               <Input
                 onChangeText={(employee_id)=>this.setState({employee_id})}
-                placeholder='ENTER EMPLOYEE ID Or NAME TO PROCEED'
+                placeholder='EMPLOYEE ID'
                 value={this.state.employee_id} />
               <Button
                 title='ENTER'

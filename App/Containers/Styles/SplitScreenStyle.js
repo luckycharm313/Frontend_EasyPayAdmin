@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   introduceText: {
     fontSize: Fonts.size.small,
-    color: Colors.black,
+    color: Colors.fire,
     fontWeight: '500'
   },
   topBtnContainer: {

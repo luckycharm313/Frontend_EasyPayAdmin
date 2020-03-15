@@ -12,7 +12,10 @@ class LaunchScreen extends Component {
     this.state = {
       keyboardHeight: 0,
       biz_name: '',
-      biz_no: '',
+      manage_employee_id: '',
+      manage_employee_pin: '',
+      biz_phone: '',
+      biz_address: '',
       password: '',
       cf_password: '',
     }
@@ -58,22 +61,46 @@ class LaunchScreen extends Component {
             <View style={styles.vCenterContainer}>
               <Input
                 onChangeText={(biz_name)=>this.setState({biz_name})}
-                placeholder='PLEASE ENTER YOUR BUSINESS NAME SO THAT WE CAN QUICKLY SET YOU UP'
+                placeholder='BUSINESS NAME'
                 value={this.state.biz_name} />
-              <Input
-                onChangeText={(biz_no)=>this.setState({biz_no})}
-                placeholder='ENTER YOUR BUSINESS ACCOUNT NUMBER WITH EASY PAY'
-                value={this.state.biz_no} />
-              <Input
-                onChangeText={(password)=>this.setState({password})}
-                secureTextEntry
-                placeholder='CREATE YOUR OVERRIDE PASSWORD'
-                value={this.state.password} />
-              <Input
-                onChangeText={(cf_password)=>this.setState({cf_password})}
-                secureTextEntry
-                placeholder='CONFIRM YOUR OVERRIDE PASSWORD'
-                value={this.state.cf_password} />
+              <View style={styles.rowItem}>
+                <Input
+                  inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
+                  onChangeText={(manage_employee_id)=>this.setState({manage_employee_id})}
+                  placeholder='MANAGER EMPLOYEE ID'
+                  value={this.state.manage_employee_id} />
+                <Input
+                  inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
+                  onChangeText={(manage_employee_pin)=>this.setState({manage_employee_pin})}
+                  placeholder='MANAGER EMPLOYEE PIN CODE'
+                  value={this.state.manage_employee_pin} />
+              </View>              
+              <View style={styles.rowItem}>
+                <Input
+                  inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
+                  onChangeText={(biz_phone)=>this.setState({biz_phone})}
+                  placeholder='BUSINESS PHONE NUMBER'
+                  value={this.state.biz_phone} />
+                <Input
+                  inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
+                  onChangeText={(biz_address)=>this.setState({biz_address})}
+                  placeholder='BUSINESS ADDRESS'
+                  value={this.state.biz_address} />
+              </View>
+              <View style={styles.rowItem}>
+                <Input
+                  inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
+                  onChangeText={(password)=>this.setState({password})}
+                  secureTextEntry
+                  placeholder='OVERRIDE PASSWORD'
+                  value={this.state.password} />
+                <Input
+                  inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
+                  onChangeText={(cf_password)=>this.setState({cf_password})}
+                  secureTextEntry
+                  placeholder='CONFIRM OVERRIDE PASSWORD'
+                  value={this.state.cf_password} />
+              </View>              
               <Text style={styles.textNote}>WARNING : OVERRIDE PASSWORD CAN ONLY BE CHANGED AND RETRIEVED BY 
                 CONTACTING EASY PAY SUPPORT. PLEASE STORE AND KEEP INFO IN A SAFE PLACE.
               </Text>

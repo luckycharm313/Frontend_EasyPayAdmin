@@ -108,7 +108,14 @@ class ProcessReceiptScreen extends Component {
                 title='Preview Receipt'
                 titleStyle={styles.buttonTitleStyle}
                 buttonStyle={styles.buttonStyle}
-                containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
+                containerStyle={[styles.buttonContainerStyle, { marginTop: Metrics.section.xl }]}
+                onPress={this.onProgressHandle}
+              />
+              <Button
+                title='Clear All Items'
+                titleStyle={styles.buttonTitleStyle}
+                buttonStyle={styles.buttonStyle}
+                containerStyle={[styles.buttonContainerStyle, { marginBottom: Metrics.section.xl}]}
                 onPress={this.onProgressHandle}
               />
             </View>

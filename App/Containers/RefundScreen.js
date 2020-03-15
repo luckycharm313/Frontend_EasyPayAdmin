@@ -18,7 +18,6 @@ class RefundScreen extends Component {
       keyboardHeight: 0,
       receipt_id: 0,
       refund_amount: 0,
-      override_code: 0,
       employee_id: 0,
       pin: '',
     }
@@ -64,10 +63,6 @@ class RefundScreen extends Component {
               onChangeText={(refund_amount)=>this.setState({refund_amount})}
               placeholder='ENTER AMOUNT TO REFUND'
               value={this.state.refund_amount} />
-            <Input
-              onChangeText={(override_code)=>this.setState({override_code})}
-              placeholder='ENTER OVERRIDE CODE'
-              value={this.state.override_code} />
             <Button
                 title='ISSUE REFUND'
                 titleStyle={styles.buttonTitleStyle}

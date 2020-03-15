@@ -52,7 +52,7 @@ class SplitScreen extends Component {
               {
                 this.state.column === 0 &&
                   <View style={styles.introduceContainer}>
-                    <Text style={{fontSize: Fonts.size.medium, fontWeight: '800', textAlign: 'center', marginBottom: Metrics.section.medium, color: Colors.black}}>BILL SPLIT WARNING AND INSTRUCTIONS</Text>
+                    <Text style={{fontSize: Fonts.size.medium, fontWeight: '800', textAlign: 'center', marginBottom: Metrics.section.medium, color: Colors.fire}}>BILL SPLIT WARNING AND INSTRUCTIONS</Text>
                     <Text style={styles.introduceText}>
                       AS EACH PAYMENT COMPLETES EACH RECEIPT WILL DISSAPEAR.ONCE LAST PAYMENT IS SUCCESSFUL, IT’LL AUTOMATICALLY TAKE YOU BACK TO HOME PAGE. IF CARD PAYMENT DOESNT WORK. CLICK BACK TO HOME AND ADVICE CUSTOMER TO CHECK CARD ON FILE ON EASY PAY APP OR THEY CAN PAY CASH.
                     </Text>

@@ -7,6 +7,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: Metrics.mainVertical
   },
+  rowItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   textNote: {
     fontSize: Fonts.size.popular,
     color: Colors.white,
