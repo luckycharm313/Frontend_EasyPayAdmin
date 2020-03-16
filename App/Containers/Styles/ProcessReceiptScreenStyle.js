@@ -60,11 +60,11 @@ export default StyleSheet.create({
     color: Colors.white,
     flex: 1,
     marginRight: Metrics.mainHorizontal,
-    textAlign: 'right'
+    textAlign: 'right',
   },
   totalRight: {
     textAlign: 'right',
-    width: '30%',
+    width: '60%',
     fontSize: Fonts.size.middle,
     color: Colors.white,
   }

@@ -4,8 +4,12 @@ import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Dash from 'react-native-dash'
+import Toast from 'react-native-simple-toast'
+
 import Header from '../Components/Header'
 import Input from '../Components/Input'
+import { currencyFormat } from '../Services/Constant'
+import ReceiptAction from '../Redux/ReceiptRedux'
 // Styles
 import { Metrics, Fonts, Colors } from '../Themes/'
 import styles from './Styles/ProcessReceiptScreenStyle'
@@ -15,20 +19,22 @@ class ProcessReceiptScreen extends Component {
     super(props);
     this.state = {
       keyboardHeight: 0,
-      item: '',
+      name: '',
       quantity: 0,
       price: 0,
+      orders: [],
+      subTotal: 0
     }
   }
 
-  renderItem = (e) => {
+  renderItem = ({ item }) => {
     return (
       <View style={styles.orderItem}>
-        <Text style={styles.orderLeft}>1 horse beer</Text>
-        <Text style={styles.orderRight}>9.00</Text>
+        <Text style={styles.orderLeft}>{item.quantity}&nbsp;{item.name}</Text>
+        <Text style={styles.orderRight}>{currencyFormat(parseFloat(item.price) * parseInt(item.quantity))}</Text>
         <TouchableOpacity
             style={[styles.iconPlus, { backgroundColor: Colors.transparent, aspectRatio: null}]}
-            onPress={this.onAddHandle}
+            onPress={() => this.ondeleteHandle(item)}
           >
           <Icon name='minus-circle' style={[styles.icon, { fontSize: Fonts.size.middle, color: Colors.ember }]} />
         </TouchableOpacity>
@@ -45,11 +51,87 @@ class ProcessReceiptScreen extends Component {
     )
   }
 
+  onAddHandle = () => {
+    const {name, quantity, price} = this.state
+    let regNumber = /^\d+$/ ;
+    let decimal=  /^[-+]?[0-9]+\.[0-9]+$/;
+    if( name === '') return Toast.show('Menu Item is empty.');
+    if( quantity === '' || regNumber.test(quantity) === false || quantity === 0 ) return Toast.show('Quantity is not correct.');
+    if( price === 0 || price.match(decimal) === false) return Toast.show('Price is not correct.');
+
+    let _orders = [...this.state.orders]
+    let orders = []
+    let isNew = 1;
+    _orders.forEach(e => {
+      if ( e.price === price && e.name === name) {
+        orders.push({
+          iid: e.iid,
+          name,
+          quantity: parseInt(e.quantity) + parseInt(quantity),
+          price
+        })
+        isNew = 0;
+      } else {
+        orders.push(e)
+      }
+    })
+    if(isNew === 1) {
+      orders.push({
+        iid: Date.now(),
+        name,
+        quantity,
+        price
+      })
+    }    
+    
+    let subTotal = this.getSubTotal(orders);
+
+    this.setState({ orders, subTotal })
+  }
+  
+  ondeleteHandle = (item) => {
+    const { iid } = item
+
+    let _orders = [...this.state.orders]
+    let orders = []
+    _orders.forEach(e => {
+      if ( e.iid !== iid ) {
+        orders.push(e)
+      }
+    })
+
+    let subTotal = this.getSubTotal(orders);
+
+    this.setState({ orders, subTotal })
+  }
+
+  onClearHandle = () => {
+    this.setState({ orders: [] })
+  }
+
+  getSubTotal = ( orders ) => {
+    let subTotal = 0;
+    orders.forEach(element => {
+      subTotal += parseInt(element.quantity) * parseFloat(element.price);
+    });
+    return subTotal;
+  }
+
   onProgressHandle = () => {
-    this.props.navigation.navigate('IssueReceiptScreen')
+    const { orders, subTotal } = this.state
+    if(subTotal === 0 ) return Toast.show('Menu is empty.')
+    var params = {
+      orders,
+      sub_total: subTotal,
+      total: parseFloat(this.state.subTotal) + parseFloat(this.props.tax),
+      tax: parseFloat(this.props.tax),      
+    }
+
+    this.props.sendOrders(params)
   }
 
   render () {
+    
     return (
       <SafeAreaView style={styles.container}>
         <Header leftButton='back' navigation={this.props.navigation}/>
@@ -57,10 +139,10 @@ class ProcessReceiptScreen extends Component {
           <Text style={styles.textTitle}>Add Menu Item</Text>
           <View style={styles.inputContainer}>
             <Input
-              onChangeText={(item)=>this.setState({item})}
+              onChangeText={(name)=>this.setState({name})}
               placeholder='Menu Item'
               inputContainer={{ width: '40%'}}
-              value={this.state.item} />
+              value={this.state.name} />
             <Input
               onChangeText={(quantity)=>this.setState({quantity})}
               placeholder='Quantity'
@@ -83,7 +165,7 @@ class ProcessReceiptScreen extends Component {
             <View style={styles.paperContainer}>
               <FlatList
                 showsVerticalScrollIndicator={false}
-                data={[1,2,3,1,1,1,52,2,2,2,2]}
+                data={this.state.orders}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={this.renderItem}
                 ListHeaderComponent={this.renderHeader}
@@ -93,15 +175,15 @@ class ProcessReceiptScreen extends Component {
               <View style={{marginBottom: Metrics.section.xl}}>
                 <View style={[styles.orderItem, { marginTop: Metrics.section.medium }]}>
                   <Text style={styles.totalLeft}>Subtotal</Text>
-                  <Text style={styles.totalRight}>14.00</Text>
+                  <Text style={styles.totalRight}>{currencyFormat(this.state.subTotal)}</Text>
                 </View>
                 <View style={styles.orderItem}>
                   <Text style={styles.totalLeft}>Tax</Text>
-                  <Text style={styles.totalRight}>2.00</Text>
+                  <Text style={styles.totalRight}>{currencyFormat(this.props.tax)}</Text>
                 </View>
                 <View style={styles.orderItem}>
                   <Text style={[styles.totalLeft, { fontWeight: '800' }]}>Total</Text>
-                  <Text style={[styles.totalRight, { fontWeight: '800' }]}>16.00</Text>
+                  <Text style={[styles.totalRight, { fontWeight: '800' }]}>{currencyFormat(parseFloat(this.state.subTotal) + parseFloat(this.props.tax))}</Text>
                 </View>
               </View>
               <Button
@@ -116,7 +198,7 @@ class ProcessReceiptScreen extends Component {
                 titleStyle={styles.buttonTitleStyle}
                 buttonStyle={styles.buttonStyle}
                 containerStyle={[styles.buttonContainerStyle, { marginBottom: Metrics.section.xl}]}
-                onPress={this.onProgressHandle}
+                onPress={this.onClearHandle}
               />
             </View>
           </View>          
@@ -126,13 +208,15 @@ class ProcessReceiptScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({employee}) => {
   return {
+    tax: employee.employee.tax
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    sendOrders: (params) => dispatch(ReceiptAction.sendOrders(params))
   }
 }
 

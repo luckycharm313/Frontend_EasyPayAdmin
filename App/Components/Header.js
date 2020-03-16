@@ -13,7 +13,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props.navigation)
     return (
       <View style={styles.container}>
         {this.props.leftButton === "back" && (

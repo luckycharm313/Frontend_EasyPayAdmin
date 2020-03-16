@@ -16,9 +16,11 @@ const create = (baseURL = 'http://localhost:5000/admin/') => {
   })
   //
   const login = (params) => api.post(`employee/add`, params )
+  const sendOrders = (token, params) => api.post(`receipt/orders`, params, { headers : {'token': token}} )
 
   return {
     login,
+    sendOrders
   }
 }
 

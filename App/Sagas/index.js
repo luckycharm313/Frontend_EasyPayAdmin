@@ -7,12 +7,14 @@ import DebugConfig from '../Config/DebugConfig'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { EmployeeTypes } from '../Redux/EmployeeRedux'
+import { ReceiptTypes } from '../Redux/ReceiptRedux'
 
 
 /* ------------- Sagas ------------- */
 
 import { login } from './EmployeeSagas'
 import { startup, isLogin } from './StartupSagas'
+import { sendOrders } from './ReceiptSagas'
 
 /* ------------- API ------------- */
 
@@ -29,5 +31,7 @@ export default function * root () {
     takeLatest(StartupTypes.IS_LOGIN, isLogin),
 
     takeLatest(EmployeeTypes.EMPLOYEE_LOGIN, login, api),
+
+    takeLatest(ReceiptTypes.SEND_ORDERS, sendOrders, api),
   ])
 }
