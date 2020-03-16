@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'http://localhost:5000/api/') => {
+const create = (baseURL = 'http://localhost:5000/admin/') => {
   const api = apisauce.create({
     // base URL is read from the "constructor"
     baseURL,
@@ -15,16 +15,10 @@ const create = (baseURL = 'http://localhost:5000/api/') => {
     timeout: 10000
   })
   //
-  const signup = (params) => api.post(`user/signup`, params )
-  const signin = (params) => api.post(`user/signin`, params )
-  const loadUserProfile = (token) => api.post(`user/loadUserProfile`, {}, { headers : {'token': token}})
-  const updateUserProfile = (token, params) => api.post(`user/updateUserProfile`, params, { headers : {'token': token}})
+  const login = (params) => api.post(`employee/add`, params )
 
   return {
-    signup,
-    signin,
-    loadUserProfile,
-    updateUserProfile
+    login,
   }
 }
 

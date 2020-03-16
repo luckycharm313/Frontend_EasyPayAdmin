@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { SafeAreaView, View, Image, ScrollView, Keyboard, LayoutAnimation, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
-import Input from '../Components/Input'
+import Toast from 'react-native-simple-toast'
 
+import Input from '../Components/Input'
+import EmployeeAction from '../Redux/EmployeeRedux'
 // Styles
 import { Images, Metrics } from '../Themes/'
 import styles from './Styles/LoginScreenStyle'
@@ -11,9 +13,18 @@ import styles from './Styles/LoginScreenStyle'
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
+    const {navigation} = this.props
+    const { state : {params}} = navigation
     this.state = {
       keyboardHeight: 0,
-      employee_id: '',
+      biz_name: params.biz_name,
+      biz_phone: params.biz_phone,
+      biz_address: params.biz_address,
+      tax: params.tax,
+      manager_id: params.manager_id,
+      manager_pin: params.manager_pin,
+      password: params.password,
+      self_id: '',
     }
   }
 
@@ -39,7 +50,22 @@ class LoginScreen extends Component {
   }
 
   onBeginHandle = () => {
-    this.props.navigation.navigate('MainScreen')
+    const { biz_name, biz_phone, biz_address, tax, manager_id, manager_pin, password, self_id } = this.state;
+
+    if( self_id === '') return Toast.show('Employee ID is empty.');
+    var params = {
+      biz_name,
+      biz_phone,
+      biz_address,
+      tax,
+      manager_id,
+      manager_pin,
+      password,
+      self_id,
+      company_id: 1
+    }
+    console.log({params})
+    this.props.employeeLogin(params)
   }
 
   render () {
@@ -55,9 +81,9 @@ class LoginScreen extends Component {
             </View>
             <View style={styles.vCenterContainer}>
               <Input
-                onChangeText={(employee_id)=>this.setState({employee_id})}
+                onChangeText={(self_id)=>this.setState({self_id})}
                 placeholder='EMPLOYEE ID'
-                value={this.state.employee_id} />
+                value={this.state.self_id} />
               <Button
                 title='ENTER'
                 titleStyle={styles.buttonTitleStyle}
@@ -81,6 +107,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    employeeLogin: (params) => dispatch(EmployeeAction.employeeLogin(params)),
   }
 }
 

@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
-import { View, TouchableOpacity, Text } from "react-native";
+import { AsyncStorage, View, TouchableOpacity, Text } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LogoutIcon from 'react-native-vector-icons/AntDesign';
 import styles from "./Styles/HeaderStyle";
-import { Images } from "../Themes";
 
 class Header extends Component {
+
+  onLogoutHandle = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('LaunchScreen');
+  }
+
   render() {
+    console.log(this.props.navigation)
     return (
       <View style={styles.container}>
         {this.props.leftButton === "back" && (
@@ -19,7 +25,7 @@ class Header extends Component {
           </TouchableOpacity>
         )}
         <View style={styles.rightContainer}>
-          <Text style={styles.welcomeText}>Welcome,&nbsp;123123{this.props.employeeId}</Text>
+          <Text style={styles.welcomeText}>Welcome,&nbsp;{this.props.self_id}</Text>
           <TouchableOpacity
               style={styles.iconRight}
               onPress={this.onLogoutHandle}
@@ -31,8 +37,9 @@ class Header extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ employee }) => {
   return {
+    self_id: employee.employee.self_id
   }
 }
 

@@ -32,6 +32,8 @@ target 'EasyAdmin' do
   
   pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
+  pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
+
   target 'EasyAdminTests' do
     inherit! :search_paths
     # Pods for testing

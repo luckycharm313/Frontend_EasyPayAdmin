@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { SafeAreaView, View, Image, ScrollView, Keyboard, LayoutAnimation, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
+import Toast from 'react-native-simple-toast'
+import SplashScreen from 'react-native-splash-screen'
+import StartupAction from '../Redux/StartupRedux'
 import Input from '../Components/Input'
 // Styles
 import styles from './Styles/LaunchScreenStyle'
@@ -12,8 +15,9 @@ class LaunchScreen extends Component {
     this.state = {
       keyboardHeight: 0,
       biz_name: '',
-      manage_employee_id: '',
-      manage_employee_pin: '',
+      tax: '',
+      manager_id: '',
+      manager_pin: '',
       biz_phone: '',
       biz_address: '',
       password: '',
@@ -21,10 +25,16 @@ class LaunchScreen extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.isLogged !== this.props.isLogged && nextProps.isLogged === false){
+      SplashScreen.hide()
+    }
+  }
+
   componentWillMount() {
     this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow);
     this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide);
-    // this.props.isLogin();
+    this.props.isLogin();
   }
 
   componentWillUnmount() {
@@ -43,7 +53,26 @@ class LaunchScreen extends Component {
   }
 
   onBeginHandle = () => {
-    this.props.navigation.navigate('LoginScreen')
+    const { biz_name, biz_phone, biz_address, tax, manager_id, manager_pin, password, cf_password } = this.state;
+
+    let regNumber = /^\d+$/ ;
+
+    if( biz_phone === '' || regNumber.test(biz_phone) === false ) return Toast.show('Phone is not correct. Must be number');
+    if( biz_name === '') return Toast.show('Business name is empty.');
+    if( biz_address === '') return Toast.show('Business address is empty.');
+    if( tax === '') return Toast.show('Tax is empty.');
+    if( manager_id === '') return Toast.show('Manager Employee ID is empty.');
+    if( manager_pin === '') return Toast.show('Manager Employee PIN Code is empty.');
+    
+    if(password === '' || cf_password === '' ) {      
+      return Toast.show('Password or confirm password is empty.');
+    } else {
+      if(password !== cf_password ){
+        return Toast.show("Password doesn't match confirm password.");
+      }
+    }
+
+    this.props.navigation.navigate('LoginScreen', { biz_name, biz_address, biz_phone, tax, manager_id, manager_pin, password })
   }
 
   render () {
@@ -59,22 +88,18 @@ class LaunchScreen extends Component {
               <Text style={styles.textWelcome}>WELCOME TO EASY PAY ADMIN CONSOLE</Text>
             </View>
             <View style={styles.vCenterContainer}>
-              <Input
-                onChangeText={(biz_name)=>this.setState({biz_name})}
-                placeholder='BUSINESS NAME'
-                value={this.state.biz_name} />
               <View style={styles.rowItem}>
                 <Input
                   inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
-                  onChangeText={(manage_employee_id)=>this.setState({manage_employee_id})}
-                  placeholder='MANAGER EMPLOYEE ID'
-                  value={this.state.manage_employee_id} />
+                  onChangeText={(biz_name)=>this.setState({biz_name})}
+                  placeholder='BUSINESS NAME'
+                  value={this.state.biz_name} />
                 <Input
                   inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
-                  onChangeText={(manage_employee_pin)=>this.setState({manage_employee_pin})}
-                  placeholder='MANAGER EMPLOYEE PIN CODE'
-                  value={this.state.manage_employee_pin} />
-              </View>              
+                  onChangeText={(biz_address)=>this.setState({biz_address})}
+                  placeholder='BUSINESS ADDRESS'
+                  value={this.state.biz_address} />
+              </View>
               <View style={styles.rowItem}>
                 <Input
                   inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
@@ -83,9 +108,21 @@ class LaunchScreen extends Component {
                   value={this.state.biz_phone} />
                 <Input
                   inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
-                  onChangeText={(biz_address)=>this.setState({biz_address})}
-                  placeholder='BUSINESS ADDRESS'
-                  value={this.state.biz_address} />
+                  onChangeText={(tax)=>this.setState({tax})}
+                  placeholder='TAX'
+                  value={this.state.tax} />
+              </View>
+              <View style={styles.rowItem}>
+                <Input
+                  inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
+                  onChangeText={(manager_id)=>this.setState({manager_id})}
+                  placeholder='MANAGER EMPLOYEE ID'
+                  value={this.state.manager_id} />
+                <Input
+                  inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
+                  onChangeText={(manager_pin)=>this.setState({manager_pin})}
+                  placeholder='MANAGER EMPLOYEE PIN CODE'
+                  value={this.state.manager_pin} />
               </View>
               <View style={styles.rowItem}>
                 <Input
@@ -120,13 +157,15 @@ class LaunchScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({startup}) => {
   return {
+    isLogged: startup.isLogged
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    isLogin: () => dispatch(StartupAction.isLogin())
   }
 }
 

@@ -6,10 +6,12 @@ import DebugConfig from '../Config/DebugConfig'
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../Redux/StartupRedux'
+import { EmployeeTypes } from '../Redux/EmployeeRedux'
 
 
 /* ------------- Sagas ------------- */
 
+import { login } from './EmployeeSagas'
 import { startup, isLogin } from './StartupSagas'
 
 /* ------------- API ------------- */
@@ -25,5 +27,7 @@ export default function * root () {
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(StartupTypes.IS_LOGIN, isLogin),
+
+    takeLatest(EmployeeTypes.EMPLOYEE_LOGIN, login, api),
   ])
 }

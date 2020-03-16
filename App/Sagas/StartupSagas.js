@@ -15,7 +15,7 @@ export function* isLogin(action) {
   
   if(token !== null){
     yield put(StartupActions.checkLogin(true))
-    yield put(NavigationActions.navigate({ routeName: 'Drawer'} ));
+    yield put(NavigationActions.navigate({ routeName: 'MainScreen'} ));
   }
   else{
     yield put(StartupActions.checkLogin(false))
