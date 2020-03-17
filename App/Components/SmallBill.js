@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Dash from 'react-native-dash'
+import QRCode from 'react-native-qrcode'
 
 import { currencyFormat } from '../Services/Constant'
-import { Images, Metrics } from '../Themes/'
+import { Colors, Metrics } from '../Themes/'
 import styles from './Styles/SmallBillStyle'
 export default class SmallBill extends Component {
 
@@ -43,10 +44,15 @@ export default class SmallBill extends Component {
             </View>
         }
         <View style={styles.qrContainer}>
-          <Image
+          {/* <Image
             source={Images.qr}
             style={{ width: Metrics.images.sQR, height: Metrics.images.sQR }}
-          />
+          /> */}
+          <QRCode
+            value={JSON.stringify(this.props.data)}
+            size={Metrics.images.sQR}
+            bgColor={Colors.black}
+            fgColor={Colors.white}/>
           <Text style={styles.qrText}>Scan to pay</Text>
         </View>        
       </View>

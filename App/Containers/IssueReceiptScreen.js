@@ -49,7 +49,8 @@ class IssueReceiptScreen extends Component {
       <SafeAreaView style={styles.container}>
         {
           this.state.isBillView ? 
-            <BigBill onClickPaperHandle={() => this.onClickPaperHandle(null, false)}/>
+            Object.keys(this.props.scanData).length > 0 &&
+              <BigBill data={this.props.scanData} onClickPaperHandle={() => this.onClickPaperHandle(null, false)}/>
           :
           <View style={{ flex: 1}}>
             <Header leftButton='back' navigation={this.props.navigation} />
