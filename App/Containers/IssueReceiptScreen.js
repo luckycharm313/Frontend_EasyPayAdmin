@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Header from '../Components/Header'
 import SmallBill from '../Components/SmallBill'
 import BigBill from '../Components/BigBill'
+import ReceiptAction from '../Redux/ReceiptRedux'
 
 // Styles
 import { Metrics, Colors, Fonts } from '../Themes/'
@@ -14,11 +15,22 @@ import styles from './Styles/IssueReceiptScreenStyle'
 class IssueReceiptScreen extends Component {
   constructor(props) {
     super(props);
+    // const {navigation} = this.props
+    // const { state : {params}} = navigation
     this.state = {
-      isBillView: false
+      isBillView: false,
+      // receipt_id: params.receipt_id
+      receipt_id: 4
     }
   }
   
+  componentDidMount() {
+    var params = {
+      receipt_id: this.state.receipt_id
+    }
+    this.props.getReceipt(params)
+  }
+
   onSplitHandle = () => {
     this.props.navigation.navigate('SplitScreen')
   }
@@ -32,6 +44,7 @@ class IssueReceiptScreen extends Component {
   }
 
   render () {
+    
     return (
       <SafeAreaView style={styles.container}>
         {
@@ -80,27 +93,23 @@ class IssueReceiptScreen extends Component {
                     containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
                     onPress={this.onSplitHandle}
                   />
-                  <Button
-                    // icon={
-                    //   <Icon
-                    //     name="download"
-                    //     size={Fonts.size.medium}
-                    //     color={Colors.white}
-                    //   />
-                    // }
+                  {/* <Button
                     title='Print Bill'
-                    titleStyle={[styles.buttonTitleStyle/*, { marginLeft: Metrics.section.small}*/]}
+                    titleStyle={[styles.buttonTitleStyle]}
                     buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
                     containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline', marginLeft: Metrics.section.small}]}
                     onPress={this.onPrintHandle}
-                  />
+                  /> */}
                 </View>
               </View>
-              <View style={styles.mainContent}>
-                <View style={styles.billContent}>
-                  <SmallBill onClickPaperHandle={() => this.onClickPaperHandle(null, true)}/>
-                </View>
-              </View>
+              {
+                Object.keys(this.props.scanData).length > 0 &&
+                  <View style={styles.mainContent}>
+                    <View style={styles.billContent}>
+                      <SmallBill data={this.props.scanData} onClickPaperHandle={() => this.onClickPaperHandle(null, true)}/>
+                    </View>
+                  </View>
+              }              
             </View>
           </View>
         }        
@@ -109,13 +118,15 @@ class IssueReceiptScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ receipt }) => {
   return {
+    scanData: receipt.scanData
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getReceipt: (params) => dispatch(ReceiptAction.getReceipt(params))
   }
 }
 

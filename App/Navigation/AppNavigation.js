@@ -25,7 +25,7 @@ const PrimaryNav = createStackNavigator(
   },
   {
     headerMode: "none",
-    initialRouteName: "LaunchScreen",
+    initialRouteName: "IssueReceiptScreen",
     navigationOptions: {
       headerStyle: styles.header,
       lazy: false

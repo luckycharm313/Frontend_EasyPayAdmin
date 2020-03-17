@@ -17,10 +17,12 @@ const create = (baseURL = 'http://localhost:5000/admin/') => {
   //
   const login = (params) => api.post(`employee/add`, params )
   const sendOrders = (token, params) => api.post(`receipt/orders`, params, { headers : {'token': token}} )
+  const getReceipt = (token, params) => api.post(`receipt/get`, params, { headers : {'token': token}} )
 
   return {
     login,
-    sendOrders
+    sendOrders,
+    getReceipt
   }
 }
 
