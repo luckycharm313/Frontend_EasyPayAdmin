@@ -14,14 +14,14 @@ import { Metrics, Colors, Fonts } from '../Themes/'
 class SplitScreen extends Component {
   constructor(props) {
     super(props);
-    // const {navigation} = this.props
-    // const { state : {params}} = navigation
+    const {navigation} = this.props
+    const { state : {params}} = navigation
     this.state = {
       isBillView: false,
       column: 0,
       data: [],
-      // receipt_id: params.receipt_id
-      receipt_id: 4,
+      receipt_id: params.receipt_id,
+      // receipt_id: 4,
       selectItem: {}
     }
   }

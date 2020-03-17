@@ -15,12 +15,12 @@ import styles from './Styles/IssueReceiptScreenStyle'
 class IssueReceiptScreen extends Component {
   constructor(props) {
     super(props);
-    // const {navigation} = this.props
-    // const { state : {params}} = navigation
+    const {navigation} = this.props
+    const { state : {params}} = navigation
     this.state = {
       isBillView: false,
-      // receipt_id: params.receipt_id
-      receipt_id: 4
+      receipt_id: params.receipt_id
+      // receipt_id: 4
     }
   }
   
