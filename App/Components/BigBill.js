@@ -24,6 +24,17 @@ export default class BigBill extends Component {
     let receipt = this.props.data.receipt
     let employee = this.props.data.employee
     let orders = this.props.data.orders
+    
+    let qr = this.props.data
+    if(this.props.column) {
+      var temp = {...this.props.data}
+      qr = {
+        employee: temp.employee,
+        sub_receipts: this.props.item,
+        receipt: temp.receipt,
+        orders: temp.orders,
+      }
+    }
 
     return (
       <View style={[styles.paperContainer, { margin: Metrics.section.small }]}>
@@ -41,7 +52,9 @@ export default class BigBill extends Component {
           }
           <View style={[styles.orderItem, { marginVertical: Metrics.section.small }]}>
             <Text style={[styles.totalLeft, { fontWeight: '800', fontSize: Fonts.size.medium} ]}>Receipt No</Text>
-            <Text style={[styles.totalRight, { width: null, fontWeight: '800', fontSize: Fonts.size.medium }]}>{receipt.id}</Text>
+            <Text style={[styles.totalRight, { width: null, fontWeight: '800', fontSize: Fonts.size.medium }]}>
+              {receipt.id}{ this.props.column && '-'+this.props.item.id}
+            </Text>
           </View>
           {
             !this.props.column &&
@@ -70,7 +83,7 @@ export default class BigBill extends Component {
                 <View>
                   <Dash style={{ width: '100%', height:1, marginVertical: Metrics.mainVertical }}/>
                   <Text style={styles.splitText}>PAYMENT ONE</Text>
-                  <Text style={styles.splitCostText}>$14.5</Text>
+                  <Text style={styles.splitCostText}>{currencyFormat(this.props.data.sub_receipts[0].cost)}</Text>
                 </View>
             }
             <View style={styles.qrContainer}>
@@ -79,7 +92,7 @@ export default class BigBill extends Component {
                 style={{ width: Metrics.images.lQR, height: Metrics.images.lQR }}
               /> */}
               <QRCode
-                value={JSON.stringify(this.props.data)}
+                value={qr}
                 size={Metrics.images.lQR}
                 bgColor={Colors.black}
                 fgColor={Colors.white}/>

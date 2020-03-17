@@ -32,7 +32,7 @@ class IssueReceiptScreen extends Component {
   }
 
   onSplitHandle = () => {
-    this.props.navigation.navigate('SplitScreen')
+    this.props.navigation.navigate('SplitScreen', { receipt_id: this.state.receipt_id })
   }
 
   onPrintHandle = () => {
@@ -57,21 +57,6 @@ class IssueReceiptScreen extends Component {
             <View style={[styles.mainPaddingContainer , {}]}>
               <View style={styles.topBtnContainer}>
                 <View style={{}}>
-                  {/* <Button
-                    icon={
-                      <Icon
-                        name="home"
-                        size={Fonts.size.medium}
-                        color={Colors.white}
-                      />
-                    }
-                    title='Home'
-                    titleStyle={[styles.buttonTitleStyle, { marginLeft: Metrics.section.small}]}
-                    buttonStyle={[styles.buttonStyle, {paddingVertical: Metrics.mainVertical * 0.8, paddingHorizontal: Metrics.mainHorizontal}]}
-                    containerStyle={[styles.buttonContainerStyle, {alignItems: 'baseline'}]}
-                    onPress={() => this.props.navigation.navigate('MainScreen')}
-                  /> */}
-                  
                   <TouchableOpacity
                     style={styles.refreshContainer}
                     onPress={() => this.props.navigation.navigate('MainScreen')}

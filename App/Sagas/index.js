@@ -14,7 +14,7 @@ import { ReceiptTypes } from '../Redux/ReceiptRedux'
 
 import { login } from './EmployeeSagas'
 import { startup, isLogin } from './StartupSagas'
-import { sendOrders, getReceipt } from './ReceiptSagas'
+import { sendOrders, getReceipt, splitBill } from './ReceiptSagas'
 
 /* ------------- API ------------- */
 
@@ -34,5 +34,6 @@ export default function * root () {
 
     takeLatest(ReceiptTypes.SEND_ORDERS, sendOrders, api),
     takeLatest(ReceiptTypes.GET_RECEIPT, getReceipt, api),
+    takeLatest(ReceiptTypes.SPLIT_BILL, splitBill, api),
   ])
 }

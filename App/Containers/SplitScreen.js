@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Header from '../Components/Header'
 import SmallBill from '../Components/SmallBill'
 import BigBill from '../Components/BigBill'
-
+import ReceiptAction from '../Redux/ReceiptRedux'
 // Styles
 import styles from './Styles/SplitScreenStyle'
 import { Metrics, Colors, Fonts } from '../Themes/'
@@ -14,10 +14,15 @@ import { Metrics, Colors, Fonts } from '../Themes/'
 class SplitScreen extends Component {
   constructor(props) {
     super(props);
+    // const {navigation} = this.props
+    // const { state : {params}} = navigation
     this.state = {
       isBillView: false,
       column: 0,
-      data: []
+      data: [],
+      // receipt_id: params.receipt_id
+      receipt_id: 4,
+      selectItem: {}
     }
   }
 
@@ -25,26 +30,34 @@ class SplitScreen extends Component {
     if(e == 2) this.setState({data: [1, 2]})
     if(e == 3) this.setState({data: [1, 2, 3]})
     if(e == 5) this.setState({data: [1, 2, 3, 4, 5]})
+    
     this.setState({column: e})
+    var params = {
+      sub_receipt_numbers: e,
+      receipt_id: this.state.receipt_id
+    }    
+    this.props.splitBill(params)
   }
 
   onClickPaperHandle = (e, isBillView) => {
-    this.setState({isBillView})
+    this.setState({isBillView, selectItem: e})
   }
 
-  renderItem= (e) => {
+  renderItem= ({ item }) => {
     return(
       <View style={styles.billContainer}>
-        <SmallBill column={this.state.column} onClickPaperHandle={() => this.onClickPaperHandle(null, true)}/>
+        <SmallBill data={this.props.subScanData} item={item} column={this.props.subScanData.sub_receipts.length} onClickPaperHandle={() => this.onClickPaperHandle(item, true)}/>
       </View>
     )
   }
   render () {
+    
     return (
       <SafeAreaView style={styles.container}>
         {
           this.state.isBillView ? 
-            <BigBill column={this.state.column} onClickPaperHandle={() => this.onClickPaperHandle(null, false)}/>
+            Object.keys(this.props.subScanData).length > 0 && this.props.subScanData.sub_receipts.length > 0 &&
+              <BigBill data={this.props.subScanData} item={this.state.selectItem} column={this.props.subScanData.sub_receipts.length} onClickPaperHandle={() => this.onClickPaperHandle({}, false)}/>
           :
           <View style={{ flex: 1}}>
             <Header leftButton='back' navigation={this.props.navigation} />
@@ -99,11 +112,11 @@ class SplitScreen extends Component {
               
               <View style={styles.mainContent}>
               {
-                this.state.column > 0 &&
+                Object.keys(this.props.subScanData).length > 0 && this.state.column > 0 &&
                   <FlatList
                     showsVerticalScrollIndicator={false}
                     style={styles.listContainer}
-                    data={this.state.data}
+                    data={this.props.subScanData.sub_receipts}
                     renderItem={this.renderItem}
                     numColumns={2}
                     columnWrapperStyle={{justifyContent:'space-between'}}
@@ -119,13 +132,15 @@ class SplitScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ receipt }) => {
   return {
+    subScanData: receipt.subScanData
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    splitBill: (params) => dispatch(ReceiptAction.splitBill(params))
   }
 }
 

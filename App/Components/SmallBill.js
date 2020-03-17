@@ -21,6 +21,17 @@ export default class SmallBill extends Component {
 
   renderFooter = () => {
     let data = this.props.data.receipt
+    let qr = this.props.data
+    if(this.props.column) {
+      var temp = {...this.props.data}
+      qr = {
+        employee: temp.employee,
+        sub_receipts: this.props.item,
+        receipt: temp.receipt,
+        orders: temp.orders,
+      }
+    }
+
     return (
       <View style={{marginBottom: Metrics.section.xl}}>
         <View style={[styles.orderItem, { marginTop: Metrics.section.large }]}>
@@ -40,7 +51,7 @@ export default class SmallBill extends Component {
             <View>
               <Dash style={{ width: '100%', height:1, marginVertical: Metrics.mainVertical }}/>
               <Text style={styles.splitText}>PAYMENT ONE</Text>
-              <Text style={styles.splitCostText}>$14.5</Text>
+              <Text style={styles.splitCostText}>{currencyFormat(this.props.data.sub_receipts[0].cost)}</Text>
             </View>
         }
         <View style={styles.qrContainer}>
@@ -49,7 +60,7 @@ export default class SmallBill extends Component {
             style={{ width: Metrics.images.sQR, height: Metrics.images.sQR }}
           /> */}
           <QRCode
-            value={JSON.stringify(this.props.data)}
+            value={qr}
             size={Metrics.images.sQR}
             bgColor={Colors.black}
             fgColor={Colors.white}/>
@@ -74,7 +85,10 @@ export default class SmallBill extends Component {
         }
         <View style={[styles.orderItem, { marginVertical: Metrics.section.tiny }]}>
           <Text style={[styles.totalLeft, { fontWeight: '800'} ]}>Receipt No</Text>
-          <Text style={[styles.totalRight, { width: null, fontWeight: '800' }]}>{this.props.data.receipt.id}</Text>
+          <Text style={[styles.totalRight, { width: null, fontWeight: '800' }]}>
+            {this.props.data.receipt.id}
+            { this.props.column && '-'+this.props.item.id}
+          </Text>
         </View>
       </View>
     )
