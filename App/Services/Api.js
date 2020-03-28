@@ -19,12 +19,18 @@ const create = (baseURL = 'http://localhost:5000/admin/') => {
   const sendOrders = (token, params) => api.post(`receipt/orders`, params, { headers : {'token': token}} )
   const getReceipt = (token, params) => api.post(`receipt/get`, params, { headers : {'token': token}} )
   const splitBill = (token, params) => api.post(`receipt/split`, params, { headers : {'token': token}} )
+  const loadHistory = (token, params) => api.post(`receipt/load`, params, { headers : {'token': token}} )
+  const searchHistory = (token, params) => api.post(`receipt/search`, params, { headers : {'token': token}} )
+  const refund = (token, params) => api.post(`receipt/refund`, params, { headers : {'token': token}} )
 
   return {
     login,
     sendOrders,
     getReceipt,
-    splitBill
+    splitBill,
+    loadHistory,
+    searchHistory,
+    refund
   }
 }
 

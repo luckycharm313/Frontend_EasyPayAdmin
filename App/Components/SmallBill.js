@@ -21,14 +21,14 @@ export default class SmallBill extends Component {
 
   renderFooter = () => {
     let data = this.props.data.receipt
-    let qr = this.props.data
+    let qr = {
+      receipt_id: data.id,
+      sub_receipt_id: 0
+    }
     if(this.props.column) {
-      var temp = {...this.props.data}
       qr = {
-        employee: temp.employee,
-        sub_receipts: this.props.item,
-        receipt: temp.receipt,
-        orders: temp.orders,
+        receipt_id: data.id,
+        sub_receipt_id: this.props.item.id
       }
     }
 
@@ -40,7 +40,7 @@ export default class SmallBill extends Component {
         </View>
         <View style={styles.orderItem}>
           <Text style={styles.totalLeft}>Tax</Text>
-          <Text style={styles.totalRight}>{currencyFormat(data.tax)}</Text>
+          <Text style={styles.totalRight}>{data.tax}</Text>
         </View>
         <View style={styles.orderItem}>
           <Text style={[styles.totalLeft, { fontWeight: '800' }]}>Total</Text>
@@ -60,7 +60,7 @@ export default class SmallBill extends Component {
             style={{ width: Metrics.images.sQR, height: Metrics.images.sQR }}
           /> */}
           <QRCode
-            value={qr}
+            value={JSON.stringify(qr)}
             size={Metrics.images.sQR}
             bgColor={Colors.black}
             fgColor={Colors.white}/>

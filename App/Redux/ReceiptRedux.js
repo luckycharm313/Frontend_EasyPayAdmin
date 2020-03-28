@@ -9,6 +9,10 @@ const { Types, Creators } = createActions({
   getReceiptSuccess: ['scanData'],
   splitBill: ['params'],
   getSubReceiptSuccess: ['subScanData'],
+  loadHistory: ['params'],
+  getListSuccess: ['receiptList'],
+  searchHistory: ['params'],
+  refund: ['params'],
 })
 
 export const ReceiptTypes = Types
@@ -20,7 +24,8 @@ export const INITIAL_STATE = Immutable({
   receipt: {},
   scanData: {},
   subScanData: {},
-  isLoading: false
+  isLoading: false,
+  receiptList: []
 })
 
 /* ------------- Selectors ------------- */
@@ -33,13 +38,19 @@ export const ReceiptSelectors = {
 
 // request the data from an api
 export const request = (state, action) =>
-  state.merge({ receipt: {}, scanData: {}, isLoading: false })
+  state.merge({ receipt: {}, scanData: {} })
 export const getReceiptSuccess = (state, {scanData}) =>
   state.merge({ scanData })
 export const splitBill = (state, action) =>
   state.merge({ subScanData: {} })
 export const getSubReceiptSuccess = (state, { subScanData }) =>
   state.merge({ subScanData })
+export const loadHistory = (state, action) =>
+  state.merge({ receiptList: [], isLoading: true })
+export const getListSuccess = (state, { receiptList }) =>
+  state.merge({ receiptList, isLoading: false })
+export const refund = (state, action) =>
+  state.merge({ isLoading: false })
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -48,4 +59,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_RECEIPT_SUCCESS]: getReceiptSuccess,
   [Types.SPLIT_BILL]: splitBill,
   [Types.GET_SUB_RECEIPT_SUCCESS]: getSubReceiptSuccess,
+  [Types.LOAD_HISTORY]: loadHistory,
+  [Types.GET_LIST_SUCCESS]: getListSuccess,
+  [Types.SEARCH_HISTORY]: loadHistory,
+  [Types.REFUND]: refund,
 })

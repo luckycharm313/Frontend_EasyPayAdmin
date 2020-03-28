@@ -50,7 +50,7 @@ class MainScreen extends Component {
             titleStyle={styles.buttonTitleStyle}
             buttonStyle={styles.buttonStyle}
             containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
-            onPress={() => this.props.navigation.navigate('StatusScreen')}
+            onPress={() => console.log('')}
           />
         </View>        
       </SafeAreaView>

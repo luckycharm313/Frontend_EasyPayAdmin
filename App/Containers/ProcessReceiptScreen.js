@@ -86,7 +86,7 @@ class ProcessReceiptScreen extends Component {
     
     let subTotal = this.getSubTotal(orders);
 
-    this.setState({ orders, subTotal })
+    this.setState({ orders, subTotal, name: '', quantity: 0, price: 0 })
   }
   
   ondeleteHandle = (item) => {
@@ -123,7 +123,7 @@ class ProcessReceiptScreen extends Component {
     var params = {
       orders,
       sub_total: subTotal,
-      total: parseFloat(this.state.subTotal) + parseFloat(this.props.tax),
+      total: parseFloat(this.state.subTotal) * ( 100 + parseFloat(this.props.tax)) / 100,
       tax: parseFloat(this.props.tax),      
     }
 
@@ -179,11 +179,11 @@ class ProcessReceiptScreen extends Component {
                 </View>
                 <View style={styles.orderItem}>
                   <Text style={styles.totalLeft}>Tax</Text>
-                  <Text style={styles.totalRight}>{currencyFormat(this.props.tax)}</Text>
+                  <Text style={styles.totalRight}>{this.props.tax}</Text>
                 </View>
                 <View style={styles.orderItem}>
                   <Text style={[styles.totalLeft, { fontWeight: '800' }]}>Total</Text>
-                  <Text style={[styles.totalRight, { fontWeight: '800' }]}>{currencyFormat(parseFloat(this.state.subTotal) + parseFloat(this.props.tax))}</Text>
+                  <Text style={[styles.totalRight, { fontWeight: '800' }]}>{currencyFormat(parseFloat(this.state.subTotal) * ( 100 + parseFloat(this.props.tax)) / 100 )}</Text>
                 </View>
               </View>
               <Button

@@ -3,9 +3,13 @@ import { SafeAreaView, View, Text, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component'
+import moment from 'moment'
 
 import Header from "../Components/Header"
 import Input from "../Components/Input"
+
+import ReceiptAction from '../Redux/ReceiptRedux'
+
 // Styles
 import { Colors } from '../Themes/'
 import styles from './Styles/StatusScreenStyle'
@@ -16,16 +20,40 @@ class StatusScreen extends Component {
     this.state = {
       search: '',
       tableHead: ['Date', 'Time', 'Receipt No', 'Payment Status'],
-      tableData: [
-        ['Mar.10 2020', '12:00pm', '4382999900', 0],
-        ['Mar.10 2020', '12:00pm', '4382999900', 1],
-        ['Mar.10 2020', '12:00pm', '4382999900', 2],
-        ['Mar.10 2020', '12:00pm', '4382999900', 1],
-        ['Mar.10 2020', '12:00pm', '4382999900', 0],
-        ['Mar.10 2020', '12:00pm', '4382999900', 0],
-      ]
+      tableData: [],
+      tableTempData: [],
     }
   }
+
+  componentDidMount() {
+    var params = {
+      limit: 20
+    }
+    this.props.loadHistory(params);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.isLoading !== this.props.isLoading && nextProps.isLoading === false){
+      var tableData = []
+      nextProps.receiptList.forEach(element => {
+        var _date = moment.unix(element.paid_date).format('MMM DD YYYY')
+        var _time = moment.unix(element.paid_date).format('HH : mm A ')
+        var _no = ''
+        if(element.is_sub_receipt === 1) {
+          _no = element.p_id + '-' + element.id
+        } else {
+          _no = element.id
+        }
+
+        tableData.push([
+          _date, _time, _no, element.status
+        ])
+      });
+      console.log({tableData})
+      this.setState({tableData, tableTempData: tableData})
+    }
+  }
+
   element = (data, index) =>
   {
     var text = ''
@@ -33,7 +61,7 @@ class StatusScreen extends Component {
     if( data === 0 ) {
       text = 'Pending'
       color = Colors.pending
-    } else if ( data === 1 ) {
+    } else if ( data === 2 ) {
       text = 'Declined'
       color = Colors.declined
     } else {
@@ -49,6 +77,16 @@ class StatusScreen extends Component {
     )
   }
 
+  onSearchHandle = ( search ) => {
+    
+    var temp = this.state.tableTempData
+    var newArray = temp.filter(function (el) {
+      return el[2].toString().search(search) > -1 ;
+    });
+    this.setState({ search, tableData: newArray });
+    // this.props.searchHistory({ search, limit: 20 })
+  }
+
   render () {
     return (
       <SafeAreaView style={styles.container}>
@@ -58,8 +96,8 @@ class StatusScreen extends Component {
             leftIcon={
               <Icon name="search" style={styles.searchIcon} />              
             }
-            onChangeText={(search)=>this.setState({search})}
-            placeholder='Search for transaction with Employee Id, name,date, receipt number'
+            onChangeText={(search)=> this.onSearchHandle( search )}
+            placeholder='Search for transaction with receipt number'
             value={this.state.search} />
           <Table borderStyle={{borderColor: 'transparent'}}>
             <Row data={this.state.tableHead} style={styles.tableHead} textStyle={styles.tableText} />            
@@ -86,13 +124,17 @@ class StatusScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({receipt}) => {
   return {
+    receiptList: receipt.receiptList,
+    isLoading: receipt.isLoading,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    loadHistory: (params) => dispatch(ReceiptAction.loadHistory(params)),
+    searchHistory: (params) => dispatch(ReceiptAction.searchHistory(params)),
   }
 }
 

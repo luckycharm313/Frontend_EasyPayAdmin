@@ -25,14 +25,14 @@ export default class BigBill extends Component {
     let employee = this.props.data.employee
     let orders = this.props.data.orders
     
-    let qr = this.props.data
+    let qr = {
+      receipt_id: receipt.id,
+      sub_receipt_id: 0
+    }
     if(this.props.column) {
-      var temp = {...this.props.data}
       qr = {
-        employee: temp.employee,
-        sub_receipts: this.props.item,
-        receipt: temp.receipt,
-        orders: temp.orders,
+        receipt_id: receipt.id,
+        sub_receipt_id: this.props.item.id
       }
     }
 
@@ -72,7 +72,7 @@ export default class BigBill extends Component {
             </View>
             <View style={styles.orderItem}>
               <Text style={[styles.totalLeft, { fontSize: Fonts.size.medium}]}>Tax</Text>
-              <Text style={[styles.totalRight, { fontSize: Fonts.size.medium}]}>{currencyFormat(receipt.tax)}</Text>
+              <Text style={[styles.totalRight, { fontSize: Fonts.size.medium}]}>{receipt.tax}</Text>
             </View>
             <View style={styles.orderItem}>
               <Text style={[styles.totalLeft, { fontWeight: '800', fontSize: Fonts.size.popular }]}>Total</Text>
@@ -92,7 +92,7 @@ export default class BigBill extends Component {
                 style={{ width: Metrics.images.lQR, height: Metrics.images.lQR }}
               /> */}
               <QRCode
-                value={qr}
+                value={JSON.stringify(qr)}
                 size={Metrics.images.lQR}
                 bgColor={Colors.black}
                 fgColor={Colors.white}/>

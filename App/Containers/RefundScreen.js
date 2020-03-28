@@ -3,7 +3,8 @@ import { SafeAreaView, View, Text, ScrollView, Keyboard, LayoutAnimation } from 
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import Modal from 'react-native-modal'
-
+import Toast from 'react-native-simple-toast'
+import ReceiptAction from '../Redux/ReceiptRedux'
 import Header from "../Components/Header"
 import Input from "../Components/Input"
 // Styles
@@ -43,10 +44,25 @@ class RefundScreen extends Component {
   }
 
   onRefundHandle= () => {
+    const { receipt_id, refund_amount } = this.state
+    if( receipt_id === '') return Toast.show('Receipt No is empty.');
+    if( refund_amount === '') return Toast.show('Amount is empty.');
+    
     this.setState({ isOpen: true })
   }
   onGoHandle = () => {
-    this.setState({ isOpen: false })
+    const { employee_id, pin, receipt_id, refund_amount } = this.state
+    if( employee_id === '') return Toast.show('Manager ID is empty.');
+    if( pin === '') return Toast.show('PIN is empty.');
+
+    var params = {
+      receipt_id,
+      refund_amount,
+      manager_id: employee_id,
+      pin
+    }
+    this.props.refund(params)
+    // this.setState({ isOpen: false })
   }
 
   render () {
@@ -108,6 +124,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    refund: (params) => dispatch(ReceiptAction.refund(params))
   }
 }
 
