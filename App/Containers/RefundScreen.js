@@ -78,6 +78,7 @@ class RefundScreen extends Component {
             <Input
               onChangeText={(refund_amount)=>this.setState({refund_amount})}
               placeholder='ENTER AMOUNT TO REFUND'
+              keyboardType='phone-pad'
               value={this.state.refund_amount} />
             <Button
                 title='ISSUE REFUND'

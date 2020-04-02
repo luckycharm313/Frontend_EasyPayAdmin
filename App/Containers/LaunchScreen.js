@@ -105,11 +105,13 @@ class LaunchScreen extends Component {
                   inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
                   onChangeText={(biz_phone)=>this.setState({biz_phone})}
                   placeholder='BUSINESS PHONE NUMBER'
+                  keyboardType='phone-pad'
                   value={this.state.biz_phone} />
                 <Input
                   inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
                   onChangeText={(tax)=>this.setState({tax})}
                   placeholder='TAX'
+                  keyboardType='phone-pad'
                   value={this.state.tax} />
               </View>
               <View style={styles.rowItem}>

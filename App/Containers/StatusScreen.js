@@ -36,8 +36,9 @@ class StatusScreen extends Component {
     if(nextProps.isLoading !== this.props.isLoading && nextProps.isLoading === false){
       var tableData = []
       nextProps.receiptList.forEach(element => {
-        var _date = moment.unix(element.paid_date).format('MMM DD YYYY')
-        var _time = moment.unix(element.paid_date).format('HH : mm A ')
+        var _date = element.paid_date ? moment.unix(element.paid_date).format('MMM DD YYYY') : moment(element.created_at).format('MMM DD YYYY')
+        var _time = element.paid_date ? moment.unix(element.paid_date).format('HH : mm A') : moment(element.created_at).format('HH : mm A')
+        
         var _no = ''
         if(element.is_sub_receipt === 1) {
           _no = element.p_id + '-' + element.id

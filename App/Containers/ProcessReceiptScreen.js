@@ -20,8 +20,8 @@ class ProcessReceiptScreen extends Component {
     this.state = {
       keyboardHeight: 0,
       name: '',
-      quantity: 0,
-      price: 0,
+      quantity: '',
+      price: '',
       orders: [],
       subTotal: 0
     }
@@ -146,11 +146,13 @@ class ProcessReceiptScreen extends Component {
             <Input
               onChangeText={(quantity)=>this.setState({quantity})}
               placeholder='Quantity'
+              keyboardType='phone-pad'
               inputContainer={{ width: '20%'}}
               value={this.state.quantity} />
             <Input
               onChangeText={(price)=>this.setState({price})}
               placeholder='Price'
+              keyboardType='phone-pad'
               inputContainer={{ width: '20%'}}
               value={this.state.price} />
             <TouchableOpacity

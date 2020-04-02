@@ -18,6 +18,7 @@ export default StyleSheet.create({
     marginVertical: Metrics.mainVertical
   },
   textWelcome: {
+    textAlign: 'center',
     fontSize: Fonts.size.h5,
     color: Colors.white,
     fontWeight: '600',

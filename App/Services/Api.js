@@ -2,7 +2,8 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'http://localhost:5000/admin/') => {
+// const create = (baseURL = 'http://localhost:5000/admin/') => {
+  const create = (baseURL = 'http://3.133.99.134:5000/admin/') => {
   const api = apisauce.create({
     // base URL is read from the "constructor"
     baseURL,
