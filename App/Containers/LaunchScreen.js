@@ -25,16 +25,11 @@ class LaunchScreen extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.isLogged !== this.props.isLogged && nextProps.isLogged === false){
-      SplashScreen.hide()
-    }
-  }
-
   componentWillMount() {
     this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow);
     this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide);
     this.props.isLogin();
+    setTimeout(() => SplashScreen.hide(), 3000)
   }
 
   componentWillUnmount() {
@@ -57,12 +52,12 @@ class LaunchScreen extends Component {
 
     let regNumber = /^\d+$/ ;
 
-    if( biz_phone === '' || regNumber.test(biz_phone) === false ) return Toast.show('Phone is not correct. Must be number');
-    if( biz_name === '') return Toast.show('Business name is empty.');
-    if( biz_address === '') return Toast.show('Business address is empty.');
-    if( tax === '') return Toast.show('Tax is empty.');
-    if( manager_id === '') return Toast.show('Manager Employee ID is empty.');
-    if( manager_pin === '') return Toast.show('Manager Employee PIN Code is empty.');
+    if( biz_name === '') return Toast.show('Please fill in Business name.');
+    if( biz_address === '') return Toast.show('Please fill in Business address.');
+    if( biz_phone === '' ) return Toast.show('Please fill in Phone.');
+    if( tax === '') return Toast.show('Please fill in Tax.');
+    if( manager_id === '') return Toast.show('Please fill in Manager ID.');
+    if( manager_pin === '') return Toast.show('Please fill in Manager PIN Code.');
     
     if(password === '' || cf_password === '' ) {      
       return Toast.show('Password or confirm password is empty.');
@@ -118,12 +113,13 @@ class LaunchScreen extends Component {
                 <Input
                   inputContainer={{flex: 1, marginRight: Metrics.section.tiny}}
                   onChangeText={(manager_id)=>this.setState({manager_id})}
-                  placeholder='MANAGER EMPLOYEE ID'
+                  placeholder='MANAGER ID'
                   value={this.state.manager_id} />
                 <Input
                   inputContainer={{flex: 1, marginLeft: Metrics.section.tiny}}
                   onChangeText={(manager_pin)=>this.setState({manager_pin})}
-                  placeholder='MANAGER EMPLOYEE PIN CODE'
+                  secureTextEntry
+                  placeholder='MANAGER PIN CODE'
                   value={this.state.manager_pin} />
               </View>
               <View style={styles.rowItem}>

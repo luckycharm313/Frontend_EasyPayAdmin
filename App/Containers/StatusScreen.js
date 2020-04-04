@@ -17,7 +17,10 @@ import styles from './Styles/StatusScreenStyle'
 class StatusScreen extends Component {
   constructor(props) {
     super(props);
+    const {navigation} = this.props
+    const { state : {params}} = navigation
     this.state = {
+      iType: params.iType,
       search: '',
       tableHead: ['Date', 'Time', 'Receipt No', 'Payment Status'],
       tableData: [],
@@ -93,13 +96,16 @@ class StatusScreen extends Component {
       <SafeAreaView style={styles.container}>
         <Header leftButton='back' navigation={this.props.navigation}/>
         <View style={styles.mainPaddingContainer}>
-          <Input
-            leftIcon={
-              <Icon name="search" style={styles.searchIcon} />              
-            }
-            onChangeText={(search)=> this.onSearchHandle( search )}
-            placeholder='Search for transaction with receipt number'
-            value={this.state.search} />
+          {
+            this.state.iType === 1 &&
+              <Input
+                leftIcon={
+                  <Icon name="search" style={styles.searchIcon} />              
+                }
+                onChangeText={(search)=> this.onSearchHandle( search )}
+                placeholder='Search for transaction with receipt number'
+                value={this.state.search} />
+          }          
           <Table borderStyle={{borderColor: 'transparent'}}>
             <Row data={this.state.tableHead} style={styles.tableHead} textStyle={styles.tableText} />            
           </Table>

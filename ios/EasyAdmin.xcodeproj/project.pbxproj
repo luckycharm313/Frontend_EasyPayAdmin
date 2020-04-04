@@ -1748,7 +1748,7 @@
 			baseConfigurationReference = FAB970A572202C0DE5BAEE07 /* Pods-EasyAdmin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 689PRUAW24;
 				HEADER_SEARCH_PATHS = (
@@ -1779,7 +1779,7 @@
 			baseConfigurationReference = F634F6B591FF5F5C2282603A /* Pods-EasyAdmin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 689PRUAW24;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

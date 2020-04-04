@@ -16,7 +16,7 @@ class MainScreen extends Component {
   }
 
   componentDidMount() {
-    SplashScreen.hide();
+    setTimeout(() => SplashScreen.hide(), 3000)
   }
   
   render () {
@@ -36,7 +36,7 @@ class MainScreen extends Component {
             titleStyle={styles.buttonTitleStyle}
             buttonStyle={styles.buttonStyle}
             containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
-            onPress={() => this.props.navigation.navigate('StatusScreen')}
+            onPress={() => this.props.navigation.navigate('StatusScreen', { iType: 0 })}
           />
           <Button
             title='Issue Refund'
@@ -50,7 +50,7 @@ class MainScreen extends Component {
             titleStyle={styles.buttonTitleStyle}
             buttonStyle={styles.buttonStyle}
             containerStyle={[styles.buttonContainerStyle, { marginVertical: Metrics.section.xl }]}
-            onPress={() => console.log('')}
+            onPress={() => this.props.navigation.navigate('StatusScreen', { iType: 1 })}
           />
         </View>        
       </SafeAreaView>
